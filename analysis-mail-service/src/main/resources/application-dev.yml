@@ -1,0 +1,29 @@
+server:
+  port: 8788
+spring:
+  profiles:
+    active: dev
+  application:
+    name: analysis-niu-mail-service
+    # DataSource Config
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/my_mail?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: rootroot
+  main:
+    allow-bean-definition-overriding: true
+  redis:
+    host: localhost
+    jedis:
+      pool:
+        max-active: 8
+        min-idle: 5
+        max-wait: -1
+    database: 0
+    timeout: 60000
+    port: 6379
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8081/eureka

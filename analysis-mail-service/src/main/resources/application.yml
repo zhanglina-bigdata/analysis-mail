@@ -1,0 +1,8 @@
+server:
+  port: 8788
+spring:
+  profiles:
+    active: dev
+logging:
+  level:
+    com.baomidou.mybatisplus.samples.quickstart: debug

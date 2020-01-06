@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.niu.mail.mapper.MyMailServerMapper">
+    <!--一对一关联
+    -->
+    <resultMap id="Mailserver" type="com.niu.mail.entity.MyMailServer">
+        <result property="id" column="id"></result>
+        <result property="mailId" column="mail_id"></result>
+        <result property="mailHost" column="mail_host"></result>
+        <result property="mailProtocol" column="mail_protocol"></result>
+        <result property="mailTypeId" column="mail_type_id"></result>
+        <result property="smtpAuth" column="smtp_auth"></result>
+        <result property="smtpPort" column="smtp_port"></result>
+        <result property="ttlEnable" column="ttl_enable"></result>
+        <result property="sslEnable" column="ssl_enable"></result>
+        <result property="isDelete" column="is_delete"></result>
+        <association property="mailServerType" javaType="com.niu.mail.entity.MailServerType">
+            <id property="id" column="id"></id>
+            <result property="mailServerType" column="mail_server_type"></result>
+            <result property="mailServerId" column="mail_server_id"></result>
+            <result property="isDelete" column="is_delete"></result>
+        </association>
+    </resultMap>
+
+    <select id="listMailServerInfo" resultMap="Mailserver">
+        SELECT
+            a.id,a.mail_Id,a.mail_Host,a.mail_Protocol,a.mail_Type_Id,a.smtp_Auth,a.smtp_Port,a.ttl_Enable,a.ssl_Enable,
+            b.id,b.mail_Server_Type,b.mail_Server_Id,b.is_Delete
+        FROM
+            my_mail_server a
+                RIGHT JOIN
+            mail_server_type b ON a.mail_id = b.mail_server_id
+                AND a.is_delete = b.is_delete
+    </select>
+
+
+</mapper>
